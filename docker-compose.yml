@@ -1,0 +1,78 @@
+version: "3.7"
+
+services:
+
+# ####    mariadb     #### #
+  mariadb:
+    image: mariadb
+
+    restart: always
+
+    environment:
+      # 設置密碼
+      MYSQL_ROOT_PASSWORD: 123456
+       # 設置database
+      MYSQL_DATABASE: default
+
+      # 設置新的用戶(選用)
+      # MYSQL_USER: test
+      # MYSQL_PASSWORD: test
+
+      # 允許root為空白密碼(不建議)
+      # MYSQL_ALLOW_EMPTY_PASSWORD: yes
+
+      # 隨機產生密碼
+      # MYSQL_RANDOM_ROOT_PASSWORD:
+
+    # ports:
+    #   - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+
+    restart: always
+
+    environment:
+      # 設置 1 允許連接到任意服務器
+      PMA_ARBITRARY: 1
+
+    ports:
+      - "9091:80"
+
+    depends_on:
+      - mariadb
+
+# ####    Redis     #### #
+
+  redis:
+    image: redis:latest
+
+    restart: always
+
+    ports:
+     - 6379:6379
+
+  redismyadmin:
+    image: erikdubbelboer/phpredisadmin
+
+    environment:
+      # 服務器主機
+      REDIS_1_HOST: redis
+
+      # 服務器名稱
+      REDIS_1_NAME: redis
+
+      # 服務器PORT
+      REDIS_1_PORT: 6379
+
+      # 服務器密碼
+      # REDIS_1_AUTH:
+
+      # 設定帳號密碼
+      ADMIN_USER: root
+      ADMIN_PASS: 123456
+    ports:
+      - "9092:80"
+
+    depends_on:
+      - redis
