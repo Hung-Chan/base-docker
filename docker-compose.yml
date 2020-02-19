@@ -101,21 +101,21 @@ services:
 
 # ####    Drone CI/CD     #### #
   drone-server:
-      image: drone/drone:1
-      restart: always
-      ports:
-        - "9098:80"
-        - "9000"
-      volumes:
-        - /var/lib/drone:/data
-      environment:
-        - DRONE_OPEN=true
-        - DRONE_GITHUB_SERVER=${DRONE_GITHUB_SERVER}
-        - DRONE_GITHUB_CLIENT_ID=${DRONE_GITHUB_CLIENT_ID}
-        - DRONE_GITHUB_CLIENT_SECRET=${DRONE_GITHUB_CLIENT_SECRET}
-        - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
-        - DRONE_SERVER_HOST=${DRONE_SERVER_HOST}
-        - DRONE_SERVER_PROTO=${DRONE_SERVER_PROTO}
+    image: drone/drone:1
+    restart: always
+    ports:
+      - "9098:80"
+      - "9000"
+    volumes:
+      - /var/lib/drone:/data
+    environment:
+      - DRONE_OPEN=true
+      - DRONE_GITHUB_SERVER=${DRONE_GITHUB_SERVER}
+      - DRONE_GITHUB_CLIENT_ID=${DRONE_GITHUB_CLIENT_ID}
+      - DRONE_GITHUB_CLIENT_SECRET=${DRONE_GITHUB_CLIENT_SECRET}
+      - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
+      - DRONE_SERVER_HOST=${DRONE_SERVER_HOST}
+      - DRONE_SERVER_PROTO=${DRONE_SERVER_PROTO}
 
   drone-agent:
     image: drone/agent:latest
@@ -125,5 +125,5 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - DRONE_SERVER=drone-server:9098
+      - DRONE_RPC_HOST=drone-server
       - DRONE_RPC_SECRET=${DRONE_RPC_SECRET}
