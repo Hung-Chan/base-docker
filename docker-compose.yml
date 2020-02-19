@@ -108,12 +108,18 @@ services:
     volumes:
       - /var/lib/drone:/var/lib/drone/
     environment:
+      # 使用 GitHub 相關設定
       # Github Server: https://github.com
       - DRONE_GITHUB_SERVER=${DRONE_GITHUB_SERVER}
       # Github OAuth Client ID
       - DRONE_GITHUB_CLIENT_ID=${DRONE_GITHUB_CLIENT_ID}
       # Github OAuth Client Secret
       - DRONE_GITHUB_CLIENT_SECRET=${DRONE_GITHUB_CLIENT_SECRET}
+
+      # 使用 GitLab 相關設定
+      # - DRONE_GITLAB_SERVER=${DRONE_GITLAB_SERVER}
+      # - DRONE_GITLAB_CLIENT_ID=${DRONE_GITLAB_CLIENT_ID}
+      # - DRONE_GITLAB_CLIENT_SECRET=${DRONE_GITLAB_CLIENT_SECRET}
 
       # 自動生成SSL證書，並將服務器配置為接受HTTPS請求
       - DRONE_TLS_AUTOCERT=false
