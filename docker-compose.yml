@@ -10,9 +10,9 @@ services:
 
     environment:
       # 設置密碼
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
        # 設置database
-      MYSQL_DATABASE: default
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
 
       # 設置新的用戶(選用)
       # MYSQL_USER: test
@@ -37,7 +37,7 @@ services:
       PMA_ARBITRARY: 1
 
     ports:
-      - "9091:80"
+      - "${PHPMYADMIN_PORT}:80"
 
     depends_on:
       - mariadb
@@ -50,29 +50,29 @@ services:
     restart: always
 
     ports:
-     - 6379:6379
+     - "6379:6379"
 
   redismyadmin:
     image: erikdubbelboer/phpredisadmin
 
     environment:
       # 服務器主機
-      REDIS_1_HOST: redis
+      REDIS_1_HOST: ${REDIS_1_HOST}
 
       # 服務器名稱
-      REDIS_1_NAME: redis
+      REDIS_1_NAME: ${REDIS_1_NAME}
 
       # 服務器PORT
-      REDIS_1_PORT: 6379
+      REDIS_1_PORT: ${REDIS_1_PORT}
 
       # 服務器密碼
       # REDIS_1_AUTH:
 
       # 設定帳號密碼
-      ADMIN_USER: root
-      ADMIN_PASS: 123456
+      ADMIN_USER: ${ADMIN_USER}
+      ADMIN_PASS: ${ADMIN_PASS}
     ports:
-      - "9092:80"
+      - "${REDIS_MYADMIN_PORT}:80"
 
     depends_on:
       - redis
@@ -104,7 +104,7 @@ services:
     image: drone/drone:1
     restart: always
     ports:
-      - "9098:80"
+      - "${DRONESERVER_PORT}:80"
     volumes:
       - /var/lib/drone:/var/lib/drone/
     environment:
