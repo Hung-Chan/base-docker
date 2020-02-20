@@ -2,6 +2,22 @@ version: "3.7"
 
 services:
 
+# ####    golang:1.13     #### #
+  golang-project:
+    build:
+      context: ./golang-project
+    restart: always
+    volumes: 
+      - .:/golang-project
+    ports: 
+      - "1002:1002"
+    depends_on:
+      - mariadb
+      - phpmyadmin
+      - redis
+      - redismyadmin
+
+
 # ####    mariadb     #### #
   mariadb:
     image: mariadb
