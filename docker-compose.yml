@@ -7,9 +7,9 @@ services:
     build:
       context: ./golang-project
     restart: always
-    volumes: 
+    volumes:
       - .:/golang-project
-    ports: 
+    ports:
       - "1002:1002"
     depends_on:
       - mariadb
